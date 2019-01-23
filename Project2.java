@@ -28,118 +28,106 @@ algorithm with comments.
 // import entire java utility for Scanner input
 import java.util.*;
 // declare Project2 class
-public class Project2 {
+public class Project2Test2 {
+	
+	static int counter = 0;
 	// declare main method
 	public static void main(String[] args) {
-		// declare int variables corresponding to matrix 1 row & column 
-		// and matrix 2 row & column that the user will enter via console
-		// and initialize them to zero
+		// declare integer variables to accept users input for row/column size of matrices
+		// initialize to zero
 		int m1r = 0;
 		int m1c = 0;
 		int m2r = 0;
 		int m2c = 0;
-		// declare Scanner variable input to be used to accept user input for matrices row & column size
+		// declare and initialize Scanner variable input to accept user input from console
 		Scanner input = new Scanner(System.in);
-		// prompt user for row and column size for first matrix
-		System.out.println("Enter an integer value for matrix 1 row size: ");
-		System.out.println("(value must be non-negative and greater or equal to 1)");
+		// print to console prompts for user to enter row/column sizes of the two matrices
+		System.out.println("Enter the row size of Matrix 1: ");
 		m1r = input.nextInt();
-		if(m1r < 1) {
-			System.out.println("Error: Integer value must be non-negative and greater or equal to 1");
-			main(args);
-		}
-		System.out.println("Enter an integer value for matrix 1 column size: ");
-		System.out.println("(value must be non-negative and greater or equal to 1)");
+		System.out.println("Enter the column size of Matrix 1: ");
 		m1c = input.nextInt();
-		if(m1c < 1) {
-			System.out.println("Error: Integer value must be non-negative and greater or equal to 1");
-			main(args);
-		}
-		// prompt user for row and column size for second matrix
-		System.out.println("Enter an integer value for matrix 2 row size: ");
-		System.out.println("(value must be non-negative and greater or equal to 1)");
+		System.out.println("Enter the row size of Matrix 2: ");
 		m2r = input.nextInt();
-		if(m2r < 1) {
-			System.out.println("Error: Integer value must be non-negative and greater or equal to 1");
-			main(args);
+		System.out.println("Enter the column size of Matrix 2: ");
+		m2c = input.nextInt();
+		// test to make sure that the row size of Matrix 1 is equal to the column size of Matrix 2
+		// if not, send the user back to main method to try again
+		if(m1c != m2r) {
+			System.out.println("ERROR: The two matrices cannot be multiplied. Row size of Matrix 1 must equal column size of Matrix 2!");
+			System.out.println("Please try again...");
+			counter ++;
+			if(counter == 3) {
+				System.out.println("\n\nSorry...too many attempts");
+				System.out.println("Please refer to: 'Discrete Mathematics and It's Applications', Rosen, Seventh Edition, Section 2.6 Matrices page 179");
+				System.out.println("PROGRAM EXITED");
+				System.exit(1);
+			}
+			main(args); 
 		}
-		System.out.println("Enter an integer value for matrix 2 column size: ");
-		System.out.println("(value must be non-negative and greater or equal to 1)");
-		m2c = input.nextInt();	
-		if(m2c < 1) {
-			System.out.println("Error: Integer value must be non-negative and greater or equal to 1");
-			main(args);
-		}
-		// call the multiplyMatrices method passing the user entered row/column sizes for each matrix
-		multiplyMatrices(m1r, m1c, m2r, m2c);
-		
-		
-	}
-	// end main method
-
-	 
-	// declare multipyMatrices method taking in the row/column sizes entered by user
-	// and returning the product of the two matrices
-	public static int [][] multiplyMatrices(int m1r, int m1c, int m2r, int m2c){
-
-		int [][] matOne = new int[m1r][m1c];
+		// declare (2) two-dimensional integer matrices using the row/column sizes entered by user via console
+		int [][] matOne = new int[m1r][m1c]; 
 		int [][] matTwo = new int[m2r][m2c];
-		int max1 = 0;
-		int max2 = 0;
-		int maxOverall = 0;				
-		// checking for max size of n x n integer matrix from the user inputs
-		// once max int value is found use that number as the n x n size for the product matrix
-		if(m1r > m1c) {
-			max1 = m1r;
-		}
-		else {
-			max1 = m1c;
-		}
-		if(m2r > m2c) {
-			max2 = m2r;
-		}
-		else {
-			max2 = m2c;
-		}
-		if(max1 > max2) {
-			maxOverall = max1;
-		}
-		else {
-			maxOverall = max2;
-		}
-		// declare and initialize the two-dimensional product matrix using the maxOverall row/column size determined
-		// in the if/else statements directly above 
-		int [][] prodMat = new int[maxOverall][maxOverall];
-		int temp1 = maxOverall;
-		int temp2 = maxOverall;
 		
-		Scanner input1 = new Scanner(System.in);
-		// initializing the product matrix with user input values
-		System.out.println("Enter the matrix data: ");
-		for(int i = 0; i<maxOverall; i++) {
-			for(int j = 0; j<maxOverall; j++) {
-				prodMat[i][j] = input1.nextInt();
+		// prompt user to input values for Matrix 1 by row/column
+		System.out.println("Enter the values for Matrix 1 row 1/column1, row1/column2, row x/column x... :");
+		// nested for loop initializing Matrix 1 with users input
+		for(int i = 0; i < m1r; i++) {
+			for(int j = 0; j < m1c; j++) {
+				
+				matOne[i][j] = input.nextInt();
 			}
 		}
 		
+		// prompt user to input values for Matrix 2 by row/column
+		System.out.println("Enter the values for Matrix 2 row 1/column1, row1/column2, row x/column x... :");
+		// nested for loop initializing Matrix 1 with users input
+		for(int i = 0; i < m2r; i++) {
+			for(int j = 0; j < m2c; j++) {
+				
+				matTwo[i][j] = input.nextInt();
+			}
+		}
+		
+		// call multiplyMatrices method passing the two entered matrices along with their corresponding row/column sizes
+		multiplyMatrices(matOne, matTwo, m1r, m1c, m2r, m2c);
+		
+	}
+	// end main method
+	
+	// declare multipyMatrices method taking in the row/column sizes entered by user
+	// and returning the product of the two matrices
+	public static int [][] multiplyMatrices(int [][] mat1, int [][] mat2, int m1r, int m1c, int m2r, int m2c){
+		
+		// declare new integer two-dimensional matrix initializing the row/column size to the row/column values passed 
+		// to this method from main method entered by user
+		int [][] matProduct = new int[m1r][m2c];
 		// nested for loop that will iterate through the matrices using i,j,k counters
 		// multiplying the numbers in the matrices
 		for(int i = 0; i < m1r; i++) {
 			for(int j = 0; j < m2c; j++) {
 				for(int k = 0; k < m1c; k++) {
 					
-					prodMat[i][j] =+ matOne[i][k] * matTwo[k][j];
+					matProduct[i][j] += mat1[i][k] * mat2[k][j];
 				}
 			}
 		}
-		for(int[] arr : prodMat) {
-			System.out.println(Arrays.toString(prodMat));
-		}
-		return prodMat;
+
+		// print to console the product of Matrix 1 and Matrix 2
+		System.out.println("\nThe product of two matrices entered is: ");
+		System.out.println("-----------------------------------------");
+        for(int[] row : matProduct) {
+            for (int column : row) {
+                System.out.print("\t" + column + "    ");
+            }
+            System.out.println();
+        }
+		
+		return matProduct;
 	}
-
-	
-	
-
+	// close multiplyMatrices method
 }
 // end Project2 class
+
+
+
+
