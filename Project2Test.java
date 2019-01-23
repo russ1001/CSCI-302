@@ -31,6 +31,26 @@ import java.util.*;
 public class Project2Test {
 	// declare main method
 	public static void main(String[] args) {
+		// declare integer variables to accept users input for row/column size of matrices
+		int m1r = 0;
+		int m1c = 0;
+		int m2r = 0;
+		int m2c = 0;
+		// declare and initialize Scanner variable input to accept user input from console
+		Scanner input = new Scanner(System.in);
+		// print to console prompts for user to enter row/column sizes of the two matrices
+		System.out.println("Enter the row size of Matrix 1: ");
+		m1r = input.nextInt();
+		System.out.println("Enter the column size of Matrix 1: ");
+		m1c = input.nextInt();
+		System.out.println("Enter the row size of Matrix 2: ");
+		m2r = input.nextInt();
+		System.out.println("Enter the column size of Matrix 2: ");
+		m2c = input.nextInt();
+		// declare (2) two-dimensional integer matrices 
+		int [][] matOne = new int[m1r][m1c];
+		int [][] matTwo = new int[m2r][m2c];
+		
 		
 		int [][] mat1 = { {3, -2, 5}, {3, 0, 4} };     //{{1,2,3},{4,5,6}};
 		int [][] mat2 = { {2, 3}, {-9, 0}, {0, 4} };   //{{1,2},{3,4},{5,6}};
